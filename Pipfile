@@ -9,6 +9,7 @@ pylama = "*"
 [packages]
 twitchio = "*"
 pyaml = "*"
+keyboard = "*"
 
 [requires]
 python_version = "3.6"

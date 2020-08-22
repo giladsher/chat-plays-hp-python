@@ -1,13 +1,20 @@
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y013678)
 
-# Barebones Twitch Bot in Python
+# Additions by Gilad Sher
 
->**This is the companion repo to a [tutorial](https://dev.to/twitchbot101) on dev.to**
+Expanded on the functionality of the bot by implementing additional methods for sending messages related to the added features!
 
-This is a starter-kit for Twitch chat bot, if you wanna write one in Python. It utilizes the TwitchIO library and YAML files for storing secrets and config info.
+* !help command: lists all of the possible commands to use with the bot
+* all of the methods in the file are completely scale-able for additional keys if needed, and uses descriptive variable names for easy extendability of the code!
+* Sending multiple events should queue up automatically (haven't tested concurrent messages and large load yet, might need to add rate limiting)
 
-It's pretty basic right now, but I'll be expanding on this in the near future. The larger, more complex Twitch bot is being developed [HERE](https://github.com/NinjaBunny9000/DeepThonk) during [Live-Streams on Twitch](https://twitch.tv/ninjabunny9000).
+## Possible Future Features
+1. More complicated inputs such as combined keys, delays etc...
+2. Rate limiting if needed
 
+# Written Using Barebones Twitch Bot in Python
+
+>**This is my expansion on a Twitch bot using Python inspired by this [tutorial](https://dev.to/ninjabunny9000/let-s-make-a-twitch-bot-with-python-2nd8) on dev.to**
 
 ## Getting Started
 
@@ -16,18 +23,15 @@ Should be quick & easy to get up and running but, ofc, if you ever have question
 ### Prerequisites
 - [Python 3.6](https://www.python.org/downloads/release/python-368/)
 - PIPENV -> `python -m pip install pipenv`
-- oauth token & client-id for a Twitch account for your bot
+- [oauth token](https://twitchapps.com/tmi/) & [client-id](https://dev.twitch.tv/console/apps/create) for a Twitch account for your bot
 
 ### Installing
 1. Clone the repo, unzip it somewhere
 2. Open up a console window and navigate to the directory you unzipped it in
 3. Install requirements with `pipenv install`
-4. Copy & rename `integrations-example.yaml` to `integrations.yaml`
-5. Pop in all your secrets into the respective areas in `integrations.yaml`
+4. Copy & rename `.env-example` to `.env`
+5. Pop in all your secrets into the respective areas in `.env`
 6. Back to the console, `pipenv run python bot.py` to start the bot
-7. Type `!test` in the chatroom to test the bot's working
-
-**You just installed a basic chat bot for Twitch!** Have fun expanding the bot with more commands!! :D
 
 ## Bot Interaction
 Right now, you can only interact with the bot via the single command, `!test`. You can create similar commands pretty easily, just copy the function and change out the function name decorator arguement...
