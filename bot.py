@@ -47,7 +47,8 @@ bot = commands.Bot(
     initial_channels=[os.environ['CHANNEL']]
 )
 
-async def send_keyboard_event(ctx, command_name, timing = DEFAULT_PRESS_TIME):
+
+async def send_keyboard_event(ctx, command_name, timing=DEFAULT_PRESS_TIME):
     if command_name in POSSIBLE_TIMED_COMMANDS:
         keyboard.press(POSSIBLE_TIMED_COMMANDS[command_name])
         time.sleep(timing)
@@ -57,8 +58,10 @@ async def send_keyboard_event(ctx, command_name, timing = DEFAULT_PRESS_TIME):
     else:
         await ctx.channel.send(f"Whoops @{ctx.author.name}! Looks like that's not a valid command!\n Try to use !help for more information.")
 
+
 async def send_error_message(ctx):
     await ctx.channel.send(f"Whoops @{ctx.author.name}! Looks like you've entered an incorrect timing string!\n Please try using a decimal number between 0-3 (0 not included)")
+
 
 async def handle_message(ctx):
     split_message_string = ctx.content.split(' ')
@@ -70,11 +73,13 @@ async def handle_message(ctx):
             if timing > MAX_ALLOWED_TIME or timing <= MIN_ALLOWED_TIME:
                 raise Exception('Number not in allowed range')
             else:
+                # use the keyboard command synchronasly to prevent malicious keyboard inputs
                 await send_keyboard_event(ctx, command_name, timing)
         except Exception:
             await send_error_message(ctx)
     except Exception:
         await send_keyboard_event(ctx, command_name)
+
 
 async def send_help_message(ctx):
     full_string = ''
@@ -106,57 +111,71 @@ async def event_message(ctx):
     if 'hello' in ctx.content.lower():
         await ctx.channel.send(f"Hi, @{ctx.author.name}!")
 
+
 @bot.command(name="help")
 async def help(ctx):
     await send_help_message(ctx)
+
 
 @bot.command(name='test')
 async def test(ctx):
     keyboard.press('alt')
 
+
 @bot.command(name="fwd1")
 async def fwd1(ctx):
     await handle_message(ctx)
+
 
 @bot.command(name="fwd2")
 async def fwd2(ctx):
     await handle_message(ctx)
 
+
 @bot.command(name="right1")
 async def right1(ctx):
     await handle_message(ctx)
+
 
 @bot.command(name="right2")
 async def right2(ctx):
     await handle_message(ctx)
 
+
 @bot.command(name="left1")
 async def left1(ctx):
     await handle_message(ctx)
+
 
 @bot.command(name="left2")
 async def left2(ctx):
     await handle_message(ctx)
 
+
 @bot.command(name="back1")
 async def back1(ctx):
     await handle_message(ctx)
+
 
 @bot.command(name="back2")
 async def back2(ctx):
     await handle_message(ctx)
 
+
 @bot.command(name="map")
 async def map(ctx):
     await handle_message(ctx)
+
 
 @bot.command(name="potion")
 async def potion(ctx):
     await handle_message(ctx)
 
+
 @bot.command(name="jump")
 async def jump(ctx):
     await handle_message(ctx)
+
 
 @bot.command(name="cast")
 async def cast(ctx):
