@@ -26,7 +26,9 @@ POSSIBLE_TIMED_COMMANDS = {
     "!viewup": "b+w",
     "!viewdown": "b+s",
     "!skip": "tab",
-    "!cast": "b"
+    "!cast": "b",
+    "!tlcast": "b+o",
+    "!trcast": "b+p"
 }
 POSSIBLE_NON_TIMED_COMMANDS = {
     "!jump": "space",
@@ -92,7 +94,7 @@ async def event_message(ctx):
     'Runs every time a message is sent in chat.'
 
     # make sure the bot ignores itself and the streamer
-    # if ctx.author.name.lower() == os.environ['BOT_NICK'].lower():
+    # if ctx.author.name.lower() is not "someone":
     #     return
 
     await bot.handle_commands(ctx)
@@ -200,6 +202,14 @@ async def turnr(ctx):
 
 @bot.command(name="turnl")
 async def turnl(ctx):
+    await handle_message(ctx)
+
+@bot.command(name="tlcast")
+async def tlcast(ctx):
+    await handle_message(ctx)
+
+@bot.command(name="trcast")
+async def trcast(ctx):
     await handle_message(ctx)
 
 
