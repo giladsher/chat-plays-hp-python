@@ -1,5 +1,4 @@
 import os
-import time
 import keyboard
 from twitchio.ext import commands
 
@@ -45,6 +44,8 @@ bot = commands.Bot(
     prefix=os.environ['BOT_PREFIX'],
     initial_channels=[os.environ['CHANNEL']]
 )
+
+allowed_user = None
 
 
 def send_keyboard_event(ctx, command_name, timing=DEFAULT_PRESS_TIME):
@@ -92,12 +93,26 @@ async def event_ready():
 @bot.event
 async def event_message(ctx):
     'Runs every time a message is sent in chat.'
-
-    # make sure the bot ignores itself and the streamer
-    # if ctx.author.name.lower() is not "someone":
-    #     return
+    if allowed_user is not None and ctx.author.name.lower() is not allowed_user and not ctx.author.is_mod:
+        return
 
     await bot.handle_commands(ctx)
+
+
+@bot.command(name="changeuser")
+async def change_user(ctx):
+    split_message_string = ctx.content.split(' ')
+    global allowed_user
+    try:
+        _, user = split_message_string
+        user = user.lower()
+        if user == 'all':
+            allowed_user = None
+        else:
+            allowed_user = user
+    except:
+
+        return
 
 
 @bot.command(name="fwd1")
@@ -204,9 +219,11 @@ async def turnr(ctx):
 async def turnl(ctx):
     await handle_message(ctx)
 
+
 @bot.command(name="tlcast")
 async def tlcast(ctx):
     await handle_message(ctx)
+
 
 @bot.command(name="trcast")
 async def trcast(ctx):
