@@ -93,7 +93,7 @@ async def event_ready():
 @bot.event
 async def event_message(ctx):
     'Runs every time a message is sent in chat.'
-    if allowed_user is not None and ctx.author.name.lower() is not allowed_user and not ctx.author.is_mod:
+    if allowed_user is not None and ctx.author.name.lower() is not allowed_user or not ctx.author.is_mod:
         return
 
     await bot.handle_commands(ctx)
@@ -101,10 +101,12 @@ async def event_message(ctx):
 
 @bot.command(name="changeuser")
 async def change_user(ctx):
-    split_message_string = ctx.content.split(' ')
+    split_message_string: str = ctx.content.split(' ')
     global allowed_user
     try:
         _, user = split_message_string
+        if user.startswith('@'):
+            user = user[1:]
         user = user.lower()
         if user == 'all':
             allowed_user = None
