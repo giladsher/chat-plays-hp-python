@@ -101,6 +101,8 @@ async def event_message(ctx):
 
 @bot.command(name="changeuser")
 async def change_user(ctx):
+    if not ctx.author.is_mod:
+        return
     split_message_string: str = ctx.content.split(' ')
     global allowed_user
     try:
