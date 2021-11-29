@@ -93,8 +93,9 @@ async def event_ready():
 @bot.event
 async def event_message(ctx):
     'Runs every time a message is sent in chat.'
-    if allowed_user is not None and ctx.author.name.lower() is not allowed_user or not ctx.author.is_mod:
-        return
+    if allowed_user is not None and ctx.author.name.lower() is not allowed_user:
+        if not ctx.author.is_mod:
+            return
 
     await bot.handle_commands(ctx)
 
